@@ -1,0 +1,160 @@
+name: Transcribe Daily Gwei
+
+on:
+  schedule:
+    # Run daily at 12:00 UTC (after episodes typically publish)
+    - cron: '0 12 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  transcribe:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install faster-whisper feedparser
+      
+      - name: Check for new episodes and transcribe
+        run: |
+          python << 'EOF'
+          import feedparser
+          import json
+          import os
+          import re
+          import urllib.request
+          from pathlib import Path
+          from datetime import datetime
+          
+          RSS_URL = 'https://thedailygwei.libsyn.com/rss'
+          TRANSCRIPTS_DIR = Path('transcripts')
+          MANIFEST_PATH = TRANSCRIPTS_DIR / 'manifest.json'
+          MAX_EPISODES = 3  # Check last 3 episodes
+          
+          def sanitize_filename(title):
+              safe = re.sub(r'[^a-zA-Z0-9\s\-]', '', title)
+              safe = re.sub(r'\s+', '-', safe)
+              return safe[:80].lower().strip('-')
+          
+          def parse_date(date_str):
+              try:
+                  from email.utils import parsedate_to_datetime
+                  dt = parsedate_to_datetime(date_str)
+                  return dt.strftime("%Y-%m-%d")
+              except:
+                  return "unknown"
+          
+          # Load manifest
+          manifest = {}
+          if MANIFEST_PATH.exists():
+              manifest = json.loads(MANIFEST_PATH.read_text())
+          
+          # Parse RSS
+          print("Fetching RSS feed...")
+          feed = feedparser.parse(RSS_URL)
+          
+          new_episodes = []
+          for entry in feed.entries[:MAX_EPISODES]:
+              title = entry.title
+              key = sanitize_filename(title)
+              
+              if key in manifest:
+                  print(f"Already have: {title[:50]}...")
+                  continue
+              
+              # Find audio URL
+              audio_url = None
+              for link in entry.get('links', []):
+                  if link.get('type', '').startswith('audio/'):
+                      audio_url = link.get('href')
+                      break
+              
+              if not audio_url and hasattr(entry, 'enclosures'):
+                  for enc in entry.enclosures:
+                      if enc.get('type', '').startswith('audio/'):
+                          audio_url = enc.get('href')
+                          break
+              
+              if audio_url:
+                  new_episodes.append({
+                      'title': title,
+                      'key': key,
+                      'date': parse_date(entry.get('published', '')),
+                      'audio_url': audio_url
+                  })
+          
+          if not new_episodes:
+              print("No new episodes to transcribe.")
+              exit(0)
+          
+          # Import whisper only if we have work to do
+          print(f"\nFound {len(new_episodes)} new episode(s). Loading whisper...")
+          from faster_whisper import WhisperModel
+          model = WhisperModel("small", device="cpu", compute_type="int8")
+          
+          for ep in new_episodes:
+              print(f"\nProcessing: {ep['title']}")
+              
+              # Download audio
+              audio_path = Path(f"/tmp/{ep['key']}.mp3")
+              print(f"  Downloading audio...")
+              urllib.request.urlretrieve(ep['audio_url'], audio_path)
+              print(f"  Downloaded: {audio_path.stat().st_size / 1024 / 1024:.1f}MB")
+              
+              # Transcribe
+              print(f"  Transcribing...")
+              segments, info = model.transcribe(str(audio_path), beam_size=5)
+              transcript = ' '.join([seg.text.strip() for seg in segments])
+              print(f"  Done: {len(transcript)} chars")
+              
+              # Save transcript
+              filename = f"{ep['date']}-{ep['key']}.md"
+              output_path = TRANSCRIPTS_DIR / filename
+              
+              content = f"""# {ep['title']}
+
+          **Date:** {ep['date']}
+          **Source:** Transcribed with faster-whisper (small model)
+
+          ---
+
+          {transcript}
+          """
+              
+              output_path.write_text(content)
+              print(f"  Saved: {filename}")
+              
+              # Update manifest
+              manifest[ep['key']] = {
+                  'title': ep['title'],
+                  'date': ep['date'],
+                  'file': filename,
+                  'transcribed': datetime.now().isoformat()
+              }
+              
+              # Cleanup
+              audio_path.unlink(missing_ok=True)
+          
+          # Save manifest
+          MANIFEST_PATH.write_text(json.dumps(manifest, indent=2, sort_keys=True))
+          print("\nDone!")
+          EOF
+      
+      - name: Commit and push if changed
+        run: |
+          git config user.name "nixoassistant"
+          git config user.email "nixoassistant@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "transcribe: $(date -u +%Y-%m-%d)"
+            git push
+          fi
