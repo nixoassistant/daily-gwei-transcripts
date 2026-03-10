@@ -1,6 +1,7 @@
 {
-  "description": "Ethereum terminology corrections for whisper transcriptions",
-  "version": "1.0.0",
+  "description": "Ethereum terminology - transcription corrections, acronyms, and proper nouns",
+  "version": "1.2.0",
+  "updated": "2026-03-10",
   "corrections": {
     "case_sensitive": {
       "Fossil": "FOCIL",
@@ -24,7 +25,42 @@
       "glamstone m": "Glamsterdam",
       "hegeltar": "Hegota",
       "hegotar": "Hegota",
-      "hegletuff": "Hegota"
+      "hegletuff": "Hegota",
+      "e o a": "EOA",
+      "e-o-a": "EOA",
+      "eoa's": "EOA's",
+      "e o a's": "EOA's",
+      "e o as": "EOAs",
+      "e-o-as": "EOAs",
+      "e p b s": "ePBS",
+      "e-p-b-s": "ePBS",
+      "e i p": "EIP",
+      "e-i-p": "EIP",
+      "a c d": "ACD",
+      "a-c-d": "ACD",
+      "a c d e": "ACDE",
+      "a c d c": "ACDC",
+      "a c d t": "ACDT",
+      "b a l": "BAL",
+      "b-a-l": "BAL",
+      "b a ls": "BALs",
+      "s s z": "SSZ",
+      "s-s-z": "SSZ",
+      "r l p": "RLP",
+      "r-l-p": "RLP",
+      "k z g": "KZG",
+      "k-z-g": "KZG",
+      "m e v": "MEV",
+      "m-e-v": "MEV",
+      "p b s": "PBS",
+      "p-b-s": "PBS",
+      "ulas": "EOAs",
+      "oua": "EOA",
+      "ua": "EOA",
+      "aoa": "EOA",
+      "ela": "EOA",
+      "doa": "EOA",
+      "your aides": "EOAs"
     },
     "context_aware": {
       "forecast": {
@@ -34,8 +70,46 @@
       "forecasts": {
         "pattern": "forecasts (website|site)",
         "replacement": "Forkcast"
+      },
+      "your_ways_eoa": {
+        "pattern": "(support|default|for) your ways",
+        "replacement": "$1 EOAs"
       }
     }
+  },
+  "acronyms": {
+    "EOA": "Externally Owned Account",
+    "EIP": "Ethereum Improvement Proposal",
+    "ERC": "Ethereum Request for Comments",
+    "ACD": "All Core Devs",
+    "ACDE": "All Core Devs - Execution",
+    "ACDC": "All Core Devs - Consensus",
+    "ACDT": "All Core Devs - Testing",
+    "ePBS": "enshrined Proposer-Builder Separation",
+    "PBS": "Proposer-Builder Separation",
+    "MEV": "Maximal Extractable Value",
+    "FOCIL": "Fork-Choice enforced Inclusion Lists",
+    "PeerDAS": "Peer Data Availability Sampling",
+    "SSZ": "Simple Serialize",
+    "RLP": "Recursive Length Prefix",
+    "KZG": "Kate-Zaverucha-Goldberg (commitment scheme)",
+    "BAL": "Block-Level Access List",
+    "MaxEB": "Max Effective Balance",
+    "CL": "Consensus Layer",
+    "EL": "Execution Layer",
+    "DA": "Data Availability",
+    "DAS": "Data Availability Sampling",
+    "CFI": "Considered for Inclusion",
+    "SFI": "Scheduled for Inclusion",
+    "AA": "Account Abstraction",
+    "RIP": "Rollup Improvement Proposal",
+    "EF": "Ethereum Foundation",
+    "MPT": "Merkle Patricia Trie",
+    "LMD-GHOST": "Latest Message Driven - Greedy Heaviest Observed SubTree",
+    "RANDAO": "RANdom DAO (randomness beacon)",
+    "BLS": "Boneh-Lynn-Shacham (signature scheme)",
+    "SNARK": "Succinct Non-interactive ARgument of Knowledge",
+    "STARK": "Scalable Transparent ARgument of Knowledge"
   },
   "proper_nouns": {
     "people": [
@@ -47,27 +121,68 @@
       "Alex Stokes",
       "Tomasz Stańczak",
       "Ben Edgington",
-      "Carl Beekhuizen"
+      "Carl Beekhuizen",
+      "Danny Ryan",
+      "Dankrad Feist",
+      "lightclient",
+      "potuz",
+      "Terence Tsao",
+      "Barnabé Monnot",
+      "Francesco D'Amato",
+      "Toni Wahrstätter",
+      "Guillaume Ballet",
+      "Marius van der Wijden",
+      "Parithosh Jayanthi"
     ],
+    "clients": {
+      "execution": ["Geth", "Nethermind", "Besu", "Erigon", "Reth", "EthereumJS"],
+      "consensus": ["Prysm", "Lighthouse", "Teku", "Nimbus", "Lodestar", "Grandine"]
+    },
     "protocols": [
       "FOCIL",
-      "EPBS",
+      "ePBS",
       "PeerDAS",
-      "EIP-4844",
       "MaxEB",
       "Rocket Pool",
-      "Lido"
+      "Lido",
+      "EigenLayer",
+      "Flashbots"
     ],
     "forks": [
+      "Frontier",
+      "Homestead",
+      "Byzantium",
+      "Constantinople",
+      "Istanbul",
+      "Berlin",
+      "London",
+      "Paris",
+      "Shanghai",
+      "Capella",
+      "Cancun",
+      "Deneb",
+      "Dencun",
+      "Prague",
+      "Electra",
+      "Pectra",
       "Glamsterdam",
       "Hegota",
-      "Pectra",
-      "Dencun"
+      "Fusaka"
     ],
     "websites": [
       "Forkcast",
       "L2Beat",
-      "strawmap.org"
+      "ethresear.ch",
+      "EthMagicians",
+      "ethereum.org"
+    ],
+    "organizations": [
+      "Ethereum Foundation",
+      "Protocol Guild",
+      "Consensys",
+      "Offchain Labs",
+      "Paradigm",
+      "EthPandaOps"
     ]
   }
 }

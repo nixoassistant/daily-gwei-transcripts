@@ -37,7 +37,7 @@ jobs:
           from datetime import datetime
           
           RSS_URL = 'https://thedailygwei.libsyn.com/rss'
-          TRANSCRIPTS_DIR = Path('transcripts')
+          TRANSCRIPTS_DIR = Path('transcripts/daily-gwei')
           MANIFEST_PATH = TRANSCRIPTS_DIR / 'manifest.json'
           MAX_EPISODES = 3  # Check last 3 episodes
           
