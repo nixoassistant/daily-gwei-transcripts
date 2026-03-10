@@ -5,7 +5,7 @@
 
 ---
 
-Hello, everyone. Welcome to another episode of Daily Gwei Refuel, where I capture the latest news in the through the maker system. I'm your host, Anthony Sassano, it's the 4th of March, 2026.
+Hello, everyone. Welcome to another episode of Daily Gwei Refuel, where I capture the latest news in the Ethereum ecosystem. I'm your host, Anthony Sassano, it's the 4th of March, 2026.
 
 All right, everyone, let's get into it. So apologies for missing the last two days. Obviously, I'm supposed to do a refuel on Monday.
 
@@ -17,7 +17,7 @@ But regardless, I'm excited to dive in. So first things first, the roadmap updat
 
 But there is a website for it called strawmap.org. And you can go here and you can see the roadmap. Basically, I guess as a high level overview here, it's essentially a roadmap from I guess this year, 2026 to 2030 and beyond.
 
-Now, I expect this to continuously be updated. It's not going to be like, I guess the roadmap of old, which was Vitalik's diagrams that he would update every so often and put on Twitter. This is a website that is maintained by the EF architecture team, which includes Justin Drake, Ansgar Barnaby and Francesco. And they're going to be updating this as time goes on.
+Now, I expect this to continuously be updated. It's not going to be like, I guess the roadmap of old, which was Vitalik's diagrams that he would update every so often and put on Twitter. This is a website that is maintained by the EF architecture team, which includes Justin Drake, Ansgar, Barnabé and Francesco. And they're going to be updating this as time goes on.
 
 Now, I'm not going to go through everything on obviously this roadmap here, but if you go to the website yourself, you'll be able to see that a lot of it is stuff that I've spoken about on the refuel before and a lot of it is stuff that just gets spoken about in the community generally. Nothing on this roadmap, at least from what I could tell, is like net new. Like it's nothing on this that we haven't already kind of had posts about or discussions about in the past.
 
