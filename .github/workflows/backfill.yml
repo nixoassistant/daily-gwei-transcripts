@@ -115,7 +115,7 @@ jobs:
           
           print(f"Processing {len(to_process)} episodes this run...")
           from faster_whisper import WhisperModel
-          model = WhisperModel("small", device="cpu", compute_type="int8")
+          model = WhisperModel("medium", device="cpu", compute_type="int8")
           
           for i, ep in enumerate(to_process):
               print(f"\n[{i+1}/{len(to_process)}] {ep['title'][:60]}...")
@@ -126,7 +126,11 @@ jobs:
               print(f"  Downloaded: {audio_path.stat().st_size / 1024 / 1024:.1f}MB")
               
               print(f"  Transcribing...")
-              segments, info = model.transcribe(str(audio_path), beam_size=5)
+              segments, info = model.transcribe(
+              str(audio_path),
+              beam_size=5,
+              initial_prompt="The Daily Gwei Refuel with Anthony Sassano covering Ethereum ecosystem news. Topics include Vitalik Buterin, FOCIL, PeerDAS, EPBS, Glamsterdam, Hegota, EIPs, Layer 2, DeFi, MEV, ZK proofs, Rocket Pool, and the Ethereum Foundation."
+          )
               transcript = ' '.join([seg.text.strip() for seg in segments])
               print(f"  Done: {len(transcript)} chars")
               
