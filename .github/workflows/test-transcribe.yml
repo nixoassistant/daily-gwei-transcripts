@@ -1,0 +1,70 @@
+name: Test Transcription Quality
+
+on:
+  workflow_dispatch:
+    inputs:
+      episode_url:
+        description: 'Direct audio URL to test'
+        required: true
+        default: 'https://traffic.libsyn.com/secure/thedailygwei/The_Daily_Gwei_Refuel__859_-_Ethereum_Updates.mp3'
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: pip install faster-whisper
+      
+      - name: Download and transcribe
+        run: |
+          python << 'EOF'
+          import urllib.request
+          from faster_whisper import WhisperModel
+          from pathlib import Path
+          
+          audio_url = "${{ inputs.episode_url }}"
+          audio_path = Path("/tmp/test_episode.mp3")
+          
+          print(f"Downloading: {audio_url}")
+          urllib.request.urlretrieve(audio_url, audio_path)
+          print(f"Downloaded: {audio_path.stat().st_size / 1024 / 1024:.1f}MB")
+          
+          print("\nLoading medium model...")
+          model = WhisperModel("medium", device="cpu", compute_type="int8")
+          
+          print("Transcribing with initial_prompt...")
+          segments, info = model.transcribe(
+              str(audio_path),
+              beam_size=5,
+              initial_prompt="The Daily Gwei Refuel with Anthony Sassano covering Ethereum ecosystem news. Topics include Vitalik Buterin, FOCIL, PeerDAS, EPBS, Glamsterdam, Hegota, EIPs, Layer 2, DeFi, MEV, ZK proofs, Rocket Pool, and the Ethereum Foundation."
+          )
+          
+          transcript = ' '.join([seg.text.strip() for seg in segments])
+          
+          # Save first 2000 chars as sample
+          output = Path("test_transcript_sample.txt")
+          output.write_text(f"=== FIRST 2000 CHARS OF TRANSCRIPT ===\n\n{transcript[:2000]}\n\n=== FULL LENGTH: {len(transcript)} chars ===")
+          
+          print("\n" + "="*60)
+          print("SAMPLE OUTPUT (first 2000 chars):")
+          print("="*60)
+          print(transcript[:2000])
+          EOF
+      
+      - name: Upload sample
+        uses: actions/upload-artifact@v4
+        with:
+          name: transcript-sample
+          path: test_transcript_sample.txt
