@@ -1,7 +1,7 @@
 {
   "description": "Ethereum terminology - transcription corrections, acronyms, and proper nouns",
-  "version": "1.3.0",
-  "updated": "2026-03-10",
+  "version": "1.4.0",
+  "updated": "2026-04-27",
   "corrections": {
     "case_sensitive": {
       "Fossil": "FOCIL",
@@ -119,7 +119,16 @@
     "RANDAO": "RANdom DAO (randomness beacon)",
     "BLS": "Boneh-Lynn-Shacham (signature scheme)",
     "SNARK": "Succinct Non-interactive ARgument of Knowledge",
-    "STARK": "Scalable Transparent ARgument of Knowledge"
+    "STARK": "Scalable Transparent ARgument of Knowledge",
+    "EFI": "Eligible for Inclusion",
+    "EOF": "EVM Object Format",
+    "EVM64": "64-bit EVM operations",
+    "ML-DSA": "Module-Lattice Digital Signature Algorithm",
+    "P256": "secp256r1 elliptic curve",
+    "GAS2ETH": "Gas-to-ETH conversion opcode",
+    "SETDELEGATE": "EIP-7819 delegation opcode",
+    "SECP256K1": "secp256k1 elliptic curve (ECDSA)",
+    "SECP256R1": "secp256r1 elliptic curve (P-256)"
   },
   "proper_nouns": {
     "people": [
@@ -142,11 +151,26 @@
       "Toni Wahrstätter",
       "Guillaume Ballet",
       "Marius van der Wijden",
-      "Parithosh Jayanthi"
+      "Parithosh Jayanthi",
+      "Dragan Rakita"
     ],
     "clients": {
-      "execution": ["Geth", "Nethermind", "Besu", "Erigon", "Reth", "EthereumJS"],
-      "consensus": ["Prysm", "Lighthouse", "Teku", "Nimbus", "Lodestar", "Grandine"]
+      "execution": [
+        "Geth",
+        "Nethermind",
+        "Besu",
+        "Erigon",
+        "Reth",
+        "EthereumJS"
+      ],
+      "consensus": [
+        "Prysm",
+        "Lighthouse",
+        "Teku",
+        "Nimbus",
+        "Lodestar",
+        "Grandine"
+      ]
     },
     "protocols": [
       "FOCIL",
@@ -156,7 +180,8 @@
       "Rocket Pool",
       "Lido",
       "EigenLayer",
-      "Flashbots"
+      "Flashbots",
+      "MEV-Boost"
     ],
     "forks": [
       "Frontier",
@@ -193,6 +218,81 @@
       "Offchain Labs",
       "Paradigm",
       "EthPandaOps"
+    ],
+    "eips": {
+      "EIP-7732": "Enshrined Proposer-Builder Separation",
+      "EIP-7928": "Enshrined Proposer-Builder Separation (revised)",
+      "EIP-2780": "Intrinsic Gas Reduction",
+      "EIP-7688": "Forward Compatible Consensus",
+      "EIP-7708": "ETH Transfer Logs",
+      "EIP-7778": "Block Gas Accounting Without Refunds",
+      "EIP-7843": "SLOTNUM",
+      "EIP-7904": "General Repricing",
+      "EIP-7954": "Max Contract Size Increase",
+      "EIP-7976": "Calldata Floor Cost",
+      "EIP-7981": "Access List Cost Increase",
+      "EIP-7997": "Deterministic Factory Predeploy",
+      "EIP-8024": "SWAPN, DUPN, EXCHANGE",
+      "EIP-8037": "State Creation Gas Cost Increase",
+      "EIP-8038": "State-Access Gas Cost Increase",
+      "EIP-8045": "Slashed Validator Exclusion",
+      "EIP-8061": "Exit and Consolidation Churn Increase",
+      "EIP-8080": "Consolidation Queue for Exits",
+      "EIP-7975": "eth/70",
+      "EIP-8159": "eth/71",
+      "EIP-8070": "eth/72",
+      "EIP-8136": "Cell-Level Deltas",
+      "EIP-7692": "EOF (EVM Object Format)",
+      "EIP-6404": "SSZ Transactions",
+      "EIP-6466": "SSZ Receipts",
+      "EIP-7668": "Bloom Filter Removal",
+      "EIP-7805": "FOCIL (Fork-choice Enforced Inclusion Lists)",
+      "EIP-7886": "Delayed Execution",
+      "EIP-7937": "EVM64",
+      "EIP-8051": "ML-DSA",
+      "EIP-8030": "P256",
+      "EIP-7686": "Linear EVM Memory Limits",
+      "EIP-8011": "Multidimensional Gas Metering",
+      "EIP-8053": "Milli-gas",
+      "EIP-7791": "GAS2ETH",
+      "EIP-7819": "SETDELEGATE",
+      "EIP-7793": "Conditional Transactions",
+      "EIP-7932": "Secondary Signature Algorithms",
+      "EIP-7610": "Non-Empty Storage Revert"
+    },
+    "infrastructure": [
+      "ethpandaops",
+      "Kurtosis",
+      "ethereum-package",
+      "checkpointz",
+      "dora",
+      "assertoor",
+      "buildoor",
+      "observoor",
+      "xatu-data",
+      "benchmarkoor",
+      "Helm",
+      "Kubernetes",
+      "Prometheus"
+    ],
+    "networks": [
+      "mainnet",
+      "testnet",
+      "devnet",
+      "beacon chain"
+    ],
+    "concepts": [
+      "proposer-builder",
+      "blobpool",
+      "validator",
+      "slot",
+      "epoch",
+      "fork-choice",
+      "Simple Serialize",
+      "Recursive Length Prefix",
+      "Module-Lattice Digital Signature Algorithm",
+      "secp256k1",
+      "secp256r1"
     ]
   }
 }
